@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { getAll } from '../../features/solutions'
 
 export default function Solutions() {
@@ -10,7 +11,8 @@ export default function Solutions() {
 
   return (
     <div>
-      Solutions page.
+      <h1>Solutions</h1>
+      <Link to="/commit">Add new solution</Link>
       <div>
         {solutions.data?.map((solution, index) => {
           return (

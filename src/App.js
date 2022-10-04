@@ -20,9 +20,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Base />}>
           <Route index element={<Home />} />
-          <Route path="solutions" element={<Solutions />}>
-            <Route path="commit" element={<Commit />} />
-          </Route>
+          <Route path="solutions" element={<Solutions />} />
+          <Route path="commit" element={<Commit />} />
 
           <Route path="*" element={<NoMatch />} />
         </Route>
