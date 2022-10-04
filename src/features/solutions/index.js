@@ -4,7 +4,7 @@ const routes = {
   getAll: '/solutions'
 }
 
-export const getAll = () => {
+export const getAll = (dataHandler) => {
   return api.get(routes.getAll, {
     headers: {
       'Authorization': `Bearer ${window.localStorage.getItem('API_TOKEN')}`
@@ -12,6 +12,7 @@ export const getAll = () => {
   })
     .then((response) => {
       console.log(response)
+      dataHandler(response.data)
     })
     .catch((error) => {
       console.log(error)
