@@ -7,9 +7,16 @@ import NoMatch from './pages/Errors/NoMatch';
 import Solutions from './pages/Solutions/Solutions';
 import Commit from './pages/Solutions/Commit';
 import { login } from './features/auth';
+import { getAll } from './features/solutions';
 
 const App = () => {
-  useEffect(() => { login() })
+  useEffect(() => {
+    if (!window.localStorage.getItem('API_TOKEN')) {
+      login()
+    }
+
+    getAll()
+  })
 
   return (
     <div className="App">
