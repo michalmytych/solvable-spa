@@ -29,6 +29,7 @@ export default function Select({ items = [], _value = 'id', _key = 'name', onSel
         const selected = firstWhere(items, _key, e.target.value)
         setSelectedOption(selected)
       }}>
+        <option value="A" selected>Select...</option>
         {options.map((option) => {
           return <option
             key={option[_value]}

@@ -6,7 +6,7 @@ const routes = {
 
 export const login = () => {
   return api.post(routes.login, {
-    email: 'developer@solvable.com',
+    email: 'luciano61@example.com',
     password: 'password'
   })
     .then((response) => {
