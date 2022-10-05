@@ -26,10 +26,10 @@ export default function Select({ items = [], _value = 'id', _key = 'name', onSel
   return (
     <div>
       <select onChange={(e) => {
-        const selected = firstWhere(items, _key, e.target.value)
+        const selected = firstWhere(items, _value, e.target.value)
         setSelectedOption(selected)
       }}>
-        <option value="A" selected>Select...</option>
+        <option value={null} selected>Select...</option>
         {options.map((option) => {
           return <option
             key={option[_value]}
