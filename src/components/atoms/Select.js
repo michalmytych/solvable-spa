@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { firstWhere } from '../../helpers'
 
-const evaluateOptions = (items) => {
+const resolveOptions = (items) => {
   if (items instanceof Array) {
     return items
   }
@@ -10,18 +11,24 @@ const evaluateOptions = (items) => {
   }
 }
 
-export default function Select({ items = [], _value = 'id', _key = 'name', selectedValue}) {
+export default function Select({ items = [], _value = 'id', _key = 'name', onSelect }) {
   const [options, setOptions] = useState([])
   const [selectedOption, setSelectedOption] = useState()
 
   useEffect(() => {
-    setOptions(evaluateOptions(items))
-    setSelectedOption(selectedValue)
-  }, [items, selectedValue])
+    setOptions(resolveOptions(items))
+  }, [items])
+
+  useEffect(() => {
+    onSelect(selectedOption)
+  }, [selectedOption, onSelect])
 
   return (
     <div>
-      <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+      <select onChange={(e) => {
+        const selected = firstWhere(items, _key, e.target.value)
+        setSelectedOption(selected)
+      }}>
         {options.map((option) => {
           return <option
             key={option[_value]}
