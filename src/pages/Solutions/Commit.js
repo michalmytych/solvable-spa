@@ -14,6 +14,7 @@ export default function Commit() {
   const [language, setLanguage] = useState()
   const [code, setCode] = useState(addingIntegersInCpp)
   const [commited, setCommited] = useState(false)
+  const [result, setResult] = useState()
 
   useEffect(() => {
     getAllProblems(setProblems)
@@ -23,7 +24,7 @@ export default function Commit() {
   useEffect(() => {
     async function postData(data) {
       if (commited) {
-        return commit(data)
+        return commit(data, setResult)
       }
     }
     postData({
@@ -37,12 +38,30 @@ export default function Commit() {
     <div>
       <h1>Commit a solution</h1>
       <h5>{problem ? problem.title : 'Select problem'}</h5>
-      <Select items={problems.data} _key={'title'} onSelect={setProblem}></Select>
+      <Select 
+        items={problems.data} 
+        _key={'title'} 
+        onSelect={setProblem}
+        disabled={commited}
+      />
       <h5>{language ? language.name : 'Select language'}</h5>
-      <Select items={languages} onSelect={setLanguage}></Select>
+      <Select 
+        items={languages} 
+        onSelect={setLanguage}
+        disabled={commited}
+      />
       <h5>Write down your solution</h5>
-      <Textarea value={code} onChangeHandler={setCode} />
-      <Button text='Save' onClickHandler={() => setCommited(true)} />
+      <Textarea 
+        value={code} 
+        onChangeHandler={setCode} 
+        disabled={commited}
+      />
+      <Button 
+        text='Save' 
+        onClickHandler={() => setCommited(true)} 
+        disabled={commited}
+      />
+      {result ? <h4>{result.data.message}</h4> : null}
     </div>
   )
 }

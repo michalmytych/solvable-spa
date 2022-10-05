@@ -11,7 +11,7 @@ const resolveOptions = (items) => {
   }
 }
 
-export default function Select({ items = [], _value = 'id', _key = 'name', onSelect }) {
+export default function Select({ items = [], _value = 'id', _key = 'name', onSelect, disabled = false }) {
   const [options, setOptions] = useState([])
   const [selectedOption, setSelectedOption] = useState()
 
@@ -25,7 +25,7 @@ export default function Select({ items = [], _value = 'id', _key = 'name', onSel
 
   return (
     <div>
-      <select onChange={(e) => {
+      <select disabled={disabled} onChange={(e) => {
         const selected = firstWhere(items, _value, e.target.value)
         setSelectedOption(selected)
       }}>

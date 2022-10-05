@@ -21,7 +21,7 @@ export const getAll = (dataHandler) => {
     })
 }
 
-export const commit = (data, dataHandler) => {
+export const commit = (data, responseHandler) => {
   console.log({
     code_language_id: data.langauge?.id,
     code: Buffer.from(data.code).toString('base64')
@@ -39,7 +39,7 @@ export const commit = (data, dataHandler) => {
   })
     .then((response) => {
       console.log(response)
-      dataHandler(response.data)
+      responseHandler(response)
     })
     .catch((error) => {
       console.log(error)
