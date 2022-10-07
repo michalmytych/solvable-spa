@@ -4,21 +4,31 @@ const routes = {
   login: '/login'
 }
 
-export const login = () => {
+const saveApiToken = (token) => {
+  window.localStorage.setItem('API_TOKEN', token)
+}
+
+const removeApiToken = () => {
+  window.localStorage.removeItem('API_TOKEN')
+}
+
+export const isUserAuthenticated = () => {
+  return Boolean(window.localStorage.getItem('API_TOKEN'))
+}
+
+export const login = (data, successHandler, failHandler) => {
   return api.post(routes.login, {
-    email: 'luciano61@example.com',
-    password: 'password'
+    email: data?.email,
+    password: data?.password
   })
     .then((response) => {
-      console.log(response)
-      window.localStorage.setItem('API_TOKEN', response.data.token)
+      saveApiToken(response.data?.token)
+      successHandler()
     })
-    .catch((error) => {
-      console.log(error)
-    })
+    .catch(failHandler)
 }
 
 export const logout = () => {
-  window.localStorage.removeItem('API_TOKEN')
+  removeApiToken()
 }
 

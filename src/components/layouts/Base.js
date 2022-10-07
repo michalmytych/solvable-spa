@@ -1,17 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
-export default function Base() {
+const navLinks = {
+  authenticated: [
+    { to: "/", label: "Home" },
+    { to: "/solutions", label: "Solutions" }
+  ],
+  notAuthenticated: [
+    // todo
+    { to: "/login", label: "Sign up" }
+  ],
+};
+
+export default function Base({isUserLoggedIn}) {
+  const [links, setLinks] = useState([])
+
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      return setLinks(navLinks.authenticated)
+    }
+    setLinks(navLinks.notAuthenticated)
+  }, [isUserLoggedIn])
+
   return (
     <div>
       <nav>
         <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/solutions">Solutions</Link>
-          </li>
+          {links.map(link => {
+            return (
+              <li>
+                <Link to={link.to}>{link.label}</Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
       <hr />

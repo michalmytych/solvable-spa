@@ -1,33 +1,51 @@
 import './App.css';
-import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Base from './components/layouts/Base';
 import Home from './pages/Home';
-import NoMatch from './pages/Errors/NoMatch';
 import Solutions from './pages/Solutions/Solutions';
 import Commit from './pages/Solutions/Commit';
-import { login } from './features/auth';
+import { isUserAuthenticated } from './features/auth';
+import Login from './pages/Auth/Login';
+import { useEffect, useState } from 'react';
 
 const App = () => {
+  const [authenticated, setAuthenticated] = useState(false)
+
   useEffect(() => {
-    if (!window.localStorage.getItem('API_TOKEN')) {
-      login()
+    if (isUserAuthenticated()) {
+      setAuthenticated(true)
     }
-  })
+  }, [])
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Base />}>
-          <Route index element={<Home />} />
-          <Route path="solutions" element={<Solutions />} />
-          <Route path="commit" element={<Commit />} />
-
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
-    </div>
-  );
+  if (authenticated) {
+    return (
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Base isUserLoggedIn={authenticated}/>}>
+            <Route path="home" element={<Home />} />
+            <Route path="solutions" element={<Solutions />} />
+            <Route path="commit" element={<Commit />} />
+            {/* todo */}
+            <Route path="*" element={<Navigate to="/home" />} />
+            <Route index element={<Navigate to="/home" />} />
+          </Route>
+        </Routes>
+      </div>
+    );
+  } else {
+    return (
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Base />}>
+            <Route path="/login" element={<Login onAuthSuccess={() => setAuthenticated(true)}/>} />
+            {/* todo */}
+            <Route index element={<Navigate to="/login" />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Route>
+        </Routes>
+      </div>
+    );
+  }
 }
 
 export default App;
