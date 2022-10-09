@@ -2,6 +2,7 @@ import React from 'react'
 import { BaseTable } from '../../components/molecules/Table'
 import Table from '../../components/molecules/Table'
 import Moment from 'moment'
+import Pagination from '../../components/molecules/Pagination'
 
 class ExampleTable extends BaseTable {
   constructor() {
@@ -59,6 +60,7 @@ export default function Problems() {
         dataFetch={dataFetch}
         tableAbstract={new ExampleTable()}
       />
+      <Pagination maxPage={20} />
     </div>
   )
 }
