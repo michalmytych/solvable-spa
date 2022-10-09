@@ -39,7 +39,27 @@ class ExampleTable extends BaseTable {
   }
 
   getDataFetchParams() {
-    return {}
+    return {
+      pagination: {
+        enabled: true,
+        page: 0,
+        perPage: 25
+      },
+      sorter: {
+        name: 'Name',
+        order: 'asc'
+      },
+      filters: [
+        {
+          name: 'created_at_from',
+          value: '10-10-2021'
+        },
+        {
+          name: 'created_at_to',
+          value: '10-10-2022'
+        }
+      ],
+    }
   }
 }
 
