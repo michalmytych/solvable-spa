@@ -42,6 +42,10 @@ ul > li {
   margin: 0 2rem;
 }
 
+.loggerList > li {
+  display: block;
+}
+
 tr {
   margin: 0;
 }

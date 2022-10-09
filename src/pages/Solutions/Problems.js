@@ -4,6 +4,7 @@ import Table from '../../components/molecules/Table'
 import Moment from 'moment'
 import Pagination from '../../components/molecules/Pagination'
 import Progress from '../../components/molecules/Progress'
+import Logger from '../../components/molecules/Logger'
 
 class ExampleTable extends BaseTable {
   constructor() {
@@ -83,6 +84,7 @@ export default function Problems() {
       />
       <Pagination maxPage={20} />
       <Progress percentage={43}/>
+      <Logger />
     </div>
   )
 }
