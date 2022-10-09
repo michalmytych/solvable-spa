@@ -39,14 +39,12 @@ const dataFetch = () => {
   ]
 }
 
-const tableAbstract = new ExampleTable()
-
 export default function Problems() {
   return (
     <div>
       <Table 
         dataFetch={dataFetch}
-        tableAbstract={tableAbstract}
+        tableAbstract={new ExampleTable()}
       />
     </div>
   )
