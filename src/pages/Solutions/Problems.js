@@ -1,6 +1,7 @@
 import React from 'react'
-import { BaseTable } from '../../components/molecules/Table' 
+import { BaseTable } from '../../components/molecules/Table'
 import Table from '../../components/molecules/Table'
+import Moment from 'moment'
 
 class ExampleTable extends BaseTable {
   constructor() {
@@ -19,6 +20,18 @@ class ExampleTable extends BaseTable {
           fx: (cell) => cell.toLowerCase(),
           onClick: (e) => e.target,
           onHover: (e) => e.target,
+        },
+        {
+          key: 'staff',
+          header: 'Is staff',
+          type: 'boolean',
+          fx: (cell) => cell ? <strong>Yes</strong> : <strong>No</strong>
+        },
+        {
+          key: 'created_at',
+          header: 'Joined at',
+          type: 'date',
+          fx: (cell) => Moment(cell).format('DD.MM.YYYY')
         }
       ]
     }
@@ -31,18 +44,18 @@ class ExampleTable extends BaseTable {
 
 const dataFetch = () => {
   return [
-    {name: 'John Doe', staff: true, created_at: '07-02-2019'},
-    {name: 'Emma Darcy', staff: false, created_at: '24-01-2017'},
-    {name: 'Evan McGregor', staff: false, created_at: '19-03-2018'},
-    {name: 'Emma Stone', staff: true, created_at: '02-07-2018'},
-    {name: 'Keanu Reeves', staff: true, created_at: '16-04-2014'},
+    { name: 'John Doe', staff: true, created_at: '07-02-2019' },
+    { name: 'Emma Darcy', staff: false, created_at: '01-24-2017' },
+    { name: 'Evan McGregor', staff: false, created_at: '03-19-2018' },
+    { name: 'Emma Stone', staff: true, created_at: '07-02-2018' },
+    { name: 'Keanu Reeves', staff: true, created_at: '04-16-2014' },
   ]
 }
 
 export default function Problems() {
   return (
     <div>
-      <Table 
+      <Table
         dataFetch={dataFetch}
         tableAbstract={new ExampleTable()}
       />

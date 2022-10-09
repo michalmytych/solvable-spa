@@ -24,12 +24,16 @@ export default function Table({ dataFetch, tableAbstract }) {
   return (
     <div>
       <table>
-        <tbody style={{textAlign: 'left'}}>
+        <tbody style={{ textAlign: 'left' }}>
           <tr>
             {
               tableAbstract.structure.columns.map(column => {
                 return (
-                  <th><strong>{column.header}</strong></th>
+                  <th>
+                    <strong>
+                      {column.header}
+                    </strong>
+                  </th>
                 )
               })
             }
@@ -42,7 +46,7 @@ export default function Table({ dataFetch, tableAbstract }) {
                     tableAbstract.structure.columns.map(column => {
                       return (
                         <td>
-                          {row[column.key]}
+                          {column.fx ? column.fx(row[column.key]) : row[column.key]}
                         </td>
                       )
                     })
