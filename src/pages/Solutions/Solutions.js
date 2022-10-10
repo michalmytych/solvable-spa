@@ -13,7 +13,7 @@ class SolutionsTable extends BaseTable {
           key: 'id',
           header: 'ID',
           type: 'string',
-          fx: (cell) => cell.slice(0, 12) 
+          fx: (cell) => cell.slice(0, 12)
         },
         {
           key: 'status',
@@ -43,6 +43,8 @@ export default function Solutions() {
     <div>
       <h1>Solutions</h1>
       <Link to="/commit">Add new solution</Link>
+      {/* todo */}
+      <div style={{ height: '20px' }}></div>
       <Table
         data={solutions.data}
         tableAbstract={new SolutionsTable()}

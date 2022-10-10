@@ -32,17 +32,18 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-ul > li {
+ul>li {
   display: inline-block;
   margin: 0 2rem;
 }
 
-.loggerList > li {
+.loggerList>li {
   display: block;
 }
 
@@ -52,15 +53,33 @@ tr {
 
 table {
   border-collapse: collapse;
+  margin: 0 auto;
 }
 
-th, td {
+th,
+td {
   width: 10rem;
   border: 1px solid rgb(184, 184, 184);
   padding: 0.2rem;
 }
 
 table {
-  margin: 0 auto;
+  width: 80%;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px #666;
 }
 
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(22, 103, 22);
+  transition: 0.4s;
+}
+
+a:hover {
+  color: rgb(26, 176, 26);
+}
+
+a:active {
+  color: rgb(0, 80, 0);
+}
