@@ -10,11 +10,5 @@ export const getAll = (dataHandler) => {
       'Authorization': `Bearer ${window.localStorage.getItem('API_TOKEN')}`
     }
   })
-    .then((response) => {
-      console.log(response)
-      dataHandler(response.data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    .then((response) => dataHandler(response.data))
 }

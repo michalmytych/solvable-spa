@@ -10,16 +10,12 @@ export class BaseTable {
   getDataFetchParams() { }
 }
 
-export default function Table({ dataFetch, tableAbstract }) {
+export default function Table({ data, tableAbstract }) {
   const [columnsData, setColumnsData] = useState([])
 
   useEffect(() => {
-    async function getData() {
-      setColumnsData(dataFetch(tableAbstract))
-    }
-    getData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    setColumnsData(data)
+  }, [data])
 
   return (
     <div>
@@ -27,33 +23,27 @@ export default function Table({ dataFetch, tableAbstract }) {
         <tbody style={{ textAlign: 'left' }}>
           <tr>
             {
-              tableAbstract.structure.columns.map(column => {
-                return (
-                  <th>
-                    <strong>
-                      {column.header}
-                    </strong>
-                  </th>
-                )
-              })
+              tableAbstract.structure.columns.map(column => (
+                <th key={column.header}>
+                  <strong>
+                    {column.header}
+                  </strong>
+                </th>
+              ))
             }
           </tr>
           {
-            columnsData.map((row, ix) => {
-              return (
-                <tr key={ix}>
-                  {
-                    tableAbstract.structure.columns.map(column => {
-                      return (
-                        <td>
-                          {column.fx ? column.fx(row[column.key]) : row[column.key]}
-                        </td>
-                      )
-                    })
-                  }
-                </tr>
-              )
-            })
+            columnsData?.map((row) => (
+              <tr>
+                {
+                  tableAbstract.structure.columns.map(column => (
+                    <td>
+                      {column.fx ? column.fx(row[column.key]) : row[column.key]}
+                    </td>
+                  ))
+                }
+              </tr>
+            ))
           }
         </tbody>
       </table>

@@ -7,7 +7,7 @@ import Commit from './pages/Solutions/Commit';
 import { isUserAuthenticated } from './features/auth';
 import Login from './pages/Auth/Login';
 import { useEffect, useState } from 'react';
-import Problems from './pages/Solutions/Problems';
+import Problems from './pages/Problems/Problems';
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
@@ -23,13 +23,11 @@ const App = () => {
       <div className="App">
         <Routes>
           <Route path="/" element={<Base isUserLoggedIn={authenticated}/>}>
-            <Route path="home" element={<Problems />} />
+            <Route index element={<Navigate to="/home" />} />
+            <Route path="home" element={<Home />} />
             <Route path="problems" element={<Problems />} />
             <Route path="solutions" element={<Solutions />} />
-            <Route path="commit" element={<Commit />} />
-            {/* todo */}
-            <Route path="*" element={<Navigate to="/home" />} />
-            <Route index element={<Navigate to="/home" />} />
+            <Route path="commit" element={<Commit />} />            
           </Route>
         </Routes>
       </div>
@@ -40,9 +38,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Base />}>
             <Route path="/login" element={<Login onAuthSuccess={() => setAuthenticated(true)}/>} />
-            {/* todo */}
-            <Route index element={<Navigate to="/login" />} />
-            <Route path="*" element={<Navigate to="/login" />} />
           </Route>
         </Routes>
       </div>

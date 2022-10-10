@@ -22,7 +22,7 @@ export default function Pagination({ maxPage = null }) {
   return (
     <div>
       <Button
-        text="◄ Previous"
+        text="◄"
         onClickHandler={() => setPage(page > 0 ? page - 1 : 0)}
       />
       <Input
@@ -33,7 +33,7 @@ export default function Pagination({ maxPage = null }) {
         }
       />
       <Button
-        text="Next ►"
+        text="►"
         onClickHandler={() => setPage(page < maxPage ? page + 1 : maxPage)}
       />
     </div>

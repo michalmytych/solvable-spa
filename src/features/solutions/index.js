@@ -6,6 +6,21 @@ const routes = {
   commit: (problemId) => `/solutions/${problemId}/commit`,
 }
 
+const solutionStatuses = {
+  0: 'Empty',
+  1: 'Received',
+  2: 'Validated',
+  3: 'Invalid language used',
+  4: 'Characters limit exceeded',
+  5: 'Empty decoding result',
+  6: 'Malformed UTF-8 code string',
+  7: 'Invalid',
+  8: 'Delegated',
+  9: 'Passed all tests',
+  10: 'Failed tests',
+  11: 'Interrupted'
+}
+
 export const getAll = (dataHandler) => {
   return api.get(routes.getAll, {
     headers: {
@@ -44,4 +59,8 @@ export const commit = (data, responseHandler) => {
     .catch((error) => {
       console.log(error)
     })
+}
+
+export const resolveSolutionStatus = (key) => {
+  return solutionStatuses[key] ?? '-'
 }

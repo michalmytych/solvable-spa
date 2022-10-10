@@ -4,13 +4,14 @@ import { Link, Outlet } from 'react-router-dom'
 const navLinks = {
   authenticated: [
     { to: "/", label: "Home" },
-    { to: "/solutions", label: "Solutions" }
+    { to: "/solutions", label: "Solutions" },
+    { to: "/problems", label: "Problems" }
   ],
   notAuthenticated: [
     // todo
     { to: "/login", label: "Sign up" }
   ],
-};
+}
 
 export default function Base({isUserLoggedIn}) {
   const [links, setLinks] = useState([])
@@ -28,7 +29,7 @@ export default function Base({isUserLoggedIn}) {
         <ul>
           {links.map(link => {
             return (
-              <li>
+              <li key={link.label}>
                 <Link to={link.to}>{link.label}</Link>
               </li>
             );
