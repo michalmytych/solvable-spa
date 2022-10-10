@@ -6,6 +6,7 @@ import { getAll as getAllProblems } from '../../features/problems'
 import { getAll as getAllLanguages } from '../../features/languages'
 import { addingIntegersInCpp } from '../../helpers'
 import { commit } from '../../features/solutions'
+import Steps from '../../components/molecules/Steps'
 
 export default function Commit() {
   const [problems, setProblems] = useState([])
@@ -62,6 +63,7 @@ export default function Commit() {
         disabled={commited}
       />
       {result ? <h4>{result.data.message}</h4> : null}
+      <Steps />
     </div>
   )
 }
