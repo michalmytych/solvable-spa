@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function NoMatch() {
   return (
-    <div>Pusta strona.</div>
+    <div>Empty page.</div>
   )
 }
