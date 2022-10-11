@@ -5,10 +5,5 @@ const routes = {
 }
 
 export const getAll = (dataHandler) => {
-  return api.get(routes.getAll, {
-    headers: {
-      'Authorization': `Bearer ${window.localStorage.getItem('API_TOKEN')}`
-    }
-  })
-    .then((response) => dataHandler(response.data))
+  return api.get(routes.getAll).then((response) => dataHandler(response.data))
 }

@@ -22,28 +22,14 @@ const solutionStatuses = {
 }
 
 export const getAll = (dataHandler) => {
-  return api.get(routes.getAll, {
-    headers: {
-      'Authorization': `Bearer ${window.localStorage.getItem('API_TOKEN')}`
-    }
-  })
-    .then((response) => dataHandler(response.data))
+  return api.get(routes.getAll).then((response) => dataHandler(response.data))
 }
 
 export const commit = (data, responseHandler) => {
-  console.log({
-    code_language_id: data.langauge?.id,
-    code: Buffer.from(data.code).toString('base64')
-  });
-
   return api.post(routes.commit(data.problem?.id), {
     data: {
       code_language_id: data.language?.id,
       code: Buffer.from(data.code).toString('base64')
-    }
-  }, {
-    headers: {
-      'Authorization': `Bearer ${window.localStorage.getItem('API_TOKEN')}`
     }
   })
     .then((response) => responseHandler(response))
