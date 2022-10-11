@@ -99,6 +99,7 @@ a:active {
   left: 9px;
 }
 
+/* BUTTONS */
 button, input[type="button"] {
   background-color: rgb(22, 103, 22);
   color: white;
@@ -125,4 +126,50 @@ button:disabled, input[type="button"]:disabled {
 
 select {
   width: 8rem;
+}
+
+/* ALERTS */
+.alert {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.2rem;
+  width: 12rem;
+  border-radius: 3px;
+  text-align: center;
+  padding: 0.4rem;
+  font-size: 0.9rem;
+  animation: alertSlideAndFadeIn ease-out 1s forwards;
+}
+
+.warninig {
+  color: white;
+  background-color: rgb(201, 75, 75);
+}
+
+.alertSlideAndFadeIn {
+  animation: alertSlideAndFadeIn ease-out 1s forwards;
+}
+
+.alertSlideAndFadeOut {
+  animation: alertSlideAndFadeOut ease-out 1s forwards;
+}
+
+@keyframes alertSlideAndFadeIn {
+  from {
+    bottom: -10rem;
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+@keyframes alertSlideAndFadeOut {
+  from {
+    opacity: 100%;
+  }
+  to {
+    right: -10rem;
+    opacity: 0%;
+  }
 }

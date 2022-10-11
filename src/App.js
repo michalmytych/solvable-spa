@@ -8,6 +8,7 @@ import { isUserAuthenticated } from './features/auth';
 import Login from './pages/Auth/Login';
 import { useEffect, useState } from 'react';
 import Problems from './pages/Problems/Problems';
+import Alert from './components/atoms/Alert';
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
@@ -18,8 +19,10 @@ const App = () => {
     }
   }, [])
 
+  let appRoutes = null;
+
   if (authenticated) {
-    return (
+    appRoutes = (
       <div className="App">
         <Routes>
           <Route path="/" element={<Base isUserLoggedIn={authenticated}/>}>
@@ -34,7 +37,7 @@ const App = () => {
       </div>
     )
   } else {
-    return (
+    appRoutes = (
       <div className="App">
         <Routes>
           <Route path="/" element={<Base />}>
@@ -44,6 +47,13 @@ const App = () => {
       </div>
     )
   }
+
+  return (
+    <div>
+      {appRoutes}
+      {alert ?  <Alert>{alert.content}</Alert> : null}
+    </div>
+  )
 }
 
 export default App;

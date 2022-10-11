@@ -18,6 +18,17 @@ export const initChannel = (channelName, onReceived) => {
   )
 }
 
+export const uuidv4 = () => {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  )
+}
+
+export const hideAlert = (alert) => {
+  console.log(alert);
+  alert?.classList.add('alertSlideAndFadeOut')
+} 
+
 export const uniqueByKey = (arr, key) => [
   ...new Map(arr.map(item => [item[key], item])).values()
 ];
