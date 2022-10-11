@@ -98,3 +98,31 @@ a:active {
   position: relative;
   left: 9px;
 }
+
+button, input[type="button"] {
+  background-color: rgb(22, 103, 22);
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.2rem 1rem;
+  border: none;
+  border-radius: 3px;
+  margin: 0.5rem;
+  transition: 0.2s;
+}
+
+button:hover, input[type="button"]:hover { 
+  background-color: rgb(34, 123, 34);
+  cursor: pointer;
+}
+
+button:active, input[type="button"]:active { 
+  background-color: rgb(19, 74, 19);
+}
+
+button:disabled, input[type="button"]:disabled { 
+  background-color: rgb(95, 95, 95);
+}
+
+select {
+  width: 8rem;
+}
