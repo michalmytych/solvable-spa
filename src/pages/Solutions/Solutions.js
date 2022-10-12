@@ -32,12 +32,12 @@ class SolutionsTable extends BaseTable {
   }
 }
 
-export default function Solutions() {
+export default function Solutions({ alertSetter }) {
   const [solutions, setSolutions] = useState([]);
 
   useEffect(() => {
-    getAllSolutions(setSolutions)
-  }, [])
+    getAllSolutions(setSolutions, alertSetter)
+  }, [alertSetter])
 
   return (
     <div>

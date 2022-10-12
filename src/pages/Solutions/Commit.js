@@ -7,7 +7,7 @@ import { getAll as getAllLanguages } from '../../features/languages'
 import { addingIntegersInCpp, initChannel, uniqueByKey } from '../../helpers'
 import { commit } from '../../features/solutions'
 
-export default function Commit() {
+export default function Commit({ alertSetter }) {
   const [problems, setProblems] = useState([])
   const [executions, setExecutions] = useState([])
   const [problem, setProblem] = useState()
@@ -29,14 +29,14 @@ export default function Commit() {
   }, [])
 
   useEffect(() => {
-    getAllProblems(setProblems)
-    getAllLanguages(setLanguages)
-  }, [])
+    getAllProblems(setProblems, alertSetter)
+    getAllLanguages(setLanguages, alertSetter)
+  }, [alertSetter])
 
   useEffect(() => {
     async function postData(data) {
       if (commited) {
-        return commit(data, setResult)
+        return commit(data, setResult, alertSetter)
       }
     }
     postData({
@@ -44,7 +44,7 @@ export default function Commit() {
       problem: problem,
       language: language,
     })
-  }, [code, commited, language, problem])
+  }, [alertSetter, code, commited, language, problem])
 
   return (
     <div>
@@ -75,7 +75,7 @@ export default function Commit() {
       />
       {result ? <h4>{result.data.message}</h4> : null}
       {
-        executions.map((execution, ix)=> (
+        executions.map((execution, ix) => (
           <div key={ix}>⚫️ {execution.output}</div>
         ))
       }

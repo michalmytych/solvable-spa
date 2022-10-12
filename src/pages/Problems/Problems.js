@@ -30,11 +30,11 @@ class ProblemsTable extends BaseTable {
   }
 }
 
-export default function Problems() {
+export default function Problems({ alertSetter }) {
   const [problems, setProblems] = useState([])
 
   useEffect(() => {
-    getAllProblems(setProblems)
+    getAllProblems(setProblems, alertSetter)
   }, [])
 
   return (

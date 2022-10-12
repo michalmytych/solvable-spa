@@ -12,6 +12,7 @@ import Alert from './components/atoms/Alert';
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
+  const [alert, setAlert] = useState(null)
 
   useEffect(() => {
     if (isUserAuthenticated()) {
@@ -25,12 +26,12 @@ const App = () => {
     appRoutes = (
       <div className="App">
         <Routes>
-          <Route path="/" element={<Base isUserLoggedIn={authenticated}/>}>
+          <Route path="/" element={<Base isUserLoggedIn={authenticated} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path="home" element={<Home />} />
-            <Route path="problems" element={<Problems />} />
-            <Route path="solutions" element={<Solutions />} />
-            <Route path="commit" element={<Commit />} />            
+            <Route path="problems" element={<Problems alertSetter={setAlert} />} />
+            <Route path="solutions" element={<Solutions alertSetter={setAlert} />} />
+            <Route path="commit" element={<Commit alertSetter={setAlert} />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>
@@ -41,7 +42,7 @@ const App = () => {
       <div className="App">
         <Routes>
           <Route path="/" element={<Base />}>
-            <Route path="/login" element={<Login onAuthSuccess={() => setAuthenticated(true)}/>} />
+            <Route path="/login" element={<Login onAuthSuccess={() => setAuthenticated(true)} />} />
           </Route>
         </Routes>
       </div>
@@ -51,7 +52,7 @@ const App = () => {
   return (
     <div>
       {appRoutes}
-      {alert ?  <Alert>{alert.content}</Alert> : null}
+      {alert ? <Alert>{alert.content}</Alert> : null}
     </div>
   )
 }

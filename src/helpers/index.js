@@ -25,7 +25,6 @@ export const uuidv4 = () => {
 }
 
 export const hideAlert = (alert) => {
-  console.log(alert);
   alert?.classList.add('alertSlideAndFadeOut')
 } 
 
