@@ -13,7 +13,7 @@ const navLinks = {
   ],
 }
 
-export default function Base({isUserLoggedIn}) {
+export default function Base({ isUserLoggedIn }) {
   const [links, setLinks] = useState([])
 
   useEffect(() => {
@@ -37,7 +37,9 @@ export default function Base({isUserLoggedIn}) {
         </ul>
       </nav>
       <hr />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </div>
   )
 }

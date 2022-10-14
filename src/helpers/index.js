@@ -5,28 +5,27 @@ export const firstWhere = (items, key, value) => {
   return result.length ? result[0] : null
 }
 
-export const initChannel = (channelName, onReceived) => {
+export const initChannel = (channelName, eventActionBindings) => {
   const pusher = new Pusher('d1bdabed3a3f56fe70ec', {
     cluster: 'eu',
     encrypted: true
   })
   const channel = pusher.subscribe(channelName)
-  channel.bind(
-    'executed-new-solution-test',
-    data => onReceived(data),
-    channel.unbind()
+  eventActionBindings.map(
+    binding => channel.bind(binding.event, data => binding.action(data))
   )
 }
 
 export const uuidv4 = () => {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+    // eslint-disable-next-line no-mixed-operators
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
   )
 }
 
 export const hideAlert = (alert) => {
   alert?.classList.add('alertSlideAndFadeOut')
-} 
+}
 
 export const uniqueByKey = (arr, key) => [
   ...new Map(arr.map(item => [item[key], item])).values()
@@ -40,11 +39,14 @@ int main() {
 
   int first_number, second_number, sum;
     
-  cout << "Enter two integers: ";
   cin >> first_number >> second_number;
+  cout << first_number;
+  cout << '\\n';
+  cout << second_number;
+  cout << '\\n';
   sum = first_number + second_number;
 
-  cout << first_number << " + " <<  second_number << " = " << sum;     
+  cout << sum;     
 
   return 0;
 }

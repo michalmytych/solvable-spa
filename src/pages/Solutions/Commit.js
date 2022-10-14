@@ -6,6 +6,8 @@ import { getAll as getAllProblems } from '../../features/problems'
 import { getAll as getAllLanguages } from '../../features/languages'
 import { addingIntegersInCpp, initChannel, uniqueByKey } from '../../helpers'
 import { commit } from '../../features/solutions'
+import Log from '../../components/atoms/Log'
+import Moment from 'moment'
 
 export default function Commit({ alertSetter }) {
   const [problems, setProblems] = useState([])
@@ -18,13 +20,20 @@ export default function Commit({ alertSetter }) {
   const [result, setResult] = useState()
 
   useEffect(() => {
-    initChannel('solution-tests-executions-updates', (data) => {
-      // Some bug with pusher instance being replicated in memory
-      // leads to initChannel being called 2 times so as long
-      // as it won't be fixed, we should pick only distinct
-      // executions objects from the list
-      setExecutions(executions => uniqueByKey([...executions, data.execution], 'id'))
-    })
+    initChannel('solution-tests-executions-updates', [
+      {
+        event: 'executed-new-solution-test',
+        // Some bug with pusher instance being replicated in memory
+        // leads to initChannel being called 2 times so as long
+        // as it won't be fixed, we should pick only distinct
+        // executions objects from the list
+        action: (data) => setExecutions(executions => uniqueByKey([...executions, data.execution], 'id'))
+      },
+      {
+        event: 'finished-new-solution-testing',
+        action: (data) => alert('Zakończono')
+      }
+    ])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -76,7 +85,34 @@ export default function Commit({ alertSetter }) {
       {result ? <h4>{result.data.message}</h4> : null}
       {
         executions.map((execution, ix) => (
-          <div key={ix}>⚫️ {execution.output}</div>
+          <Log
+            ix={ix}
+            map={{
+              header: `${parseInt(execution.passed) ? '🟢' : '​🔴'} Test ${ix + 1}`,
+              attributes: [
+                {
+                  key: 'Output',
+                  value: <small>{execution.output}</small>  
+                },
+                {
+                  key: 'Memory used',
+                  value: execution.memory_used
+                },
+                {
+                  key: 'Execution time',
+                  value: execution.execution_time
+                },
+                {
+                  key: 'Passed',
+                  value: parseInt(execution.passed) ? 'Yes' : 'No'
+                },
+                {
+                  key: 'Executed at',
+                  value: Moment(execution.updated_at).format('hh:mm:ss DD.MM.YYYY')
+                }
+              ],
+            }}
+          />
         ))
       }
     </div>
