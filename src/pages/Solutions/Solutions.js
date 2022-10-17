@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Table from '../../components/molecules/Table'
+import Page from '../../components/atoms/Page'
 import Moment from 'moment'
-import { getAll as getAllSolutions, resolveSolutionStatus } from '../../features/solutions'
+import { resolveSolutionStatus } from '../../features/solutions/solutionsApi'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  fetchSolutions,
+  getSolutionsError,
+  getSolutionsStatus,
+  selectAllSolutions
+} from '../../features/solutions/solutionsSlice'
+import Header from '../../components/atoms/Header'
+import Info from '../../components/atoms/Info'
 
 const solutionsTableAbstract = {
   structure: {
@@ -29,23 +39,31 @@ const solutionsTableAbstract = {
   }
 }
 
-export default function Solutions({ alertSetter }) {
-  const [solutions, setSolutions] = useState([]);
+export default function Solutions() {
+  const dispatch = useDispatch()
+
+  const solutions = useSelector(selectAllSolutions)
+  const solutionsStatus = useSelector(getSolutionsStatus)
+  const solutionsError = useSelector(getSolutionsError)
 
   useEffect(() => {
-    getAllSolutions(setSolutions, alertSetter)
-  }, [alertSetter])
+    if (solutionsStatus === 'idle') {
+      dispatch(fetchSolutions())
+    }
+  }, [solutionsStatus, dispatch])
 
   return (
-    <div>
-      <h1>Solutions</h1>
+    <Page>
+      <Header text="Solutions" />
       <Link to="/commit">Add new solution</Link>
-      {/* todo */}
-      <div style={{ height: '20px' }}></div>
-      <Table
-        data={solutions.data}
-        tableAbstract={solutionsTableAbstract}
-      />
-    </div>
+      {solutionsStatus === 'loading' ? <Header text="Loading..." /> : null}
+      {solutionsStatus === 'succeeded' ?
+        <Table
+          data={solutions}
+          tableAbstract={solutionsTableAbstract}
+        />
+        : null}
+      {solutionsStatus === 'failed' ? <Info type="danger" text={solutionsError} /> : null}
+    </Page>
   )
 }

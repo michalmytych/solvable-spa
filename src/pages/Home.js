@@ -1,10 +1,15 @@
 import React from 'react'
+import Page from '../components/atoms/Page'
+import Header from '../components/atoms/Header'
 
 export default function Home() {
   return (
-    <div>
-      <h1>Solvable</h1>
-      <h3>Learn programming by solving interactive problems with your friends</h3>
-    </div>
+    <Page>
+      <Header text="Solvable" />
+      <Header
+        type="h3"
+        text="Learn programming by solving interactive problems with your friends"
+      />
+    </Page>
   )
 }

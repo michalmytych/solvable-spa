@@ -1,7 +1,11 @@
 import React from 'react'
+import Page from '../../components/atoms/Page'
+import Header from '../../components/atoms/Header'
 
 export default function NoMatch() {
   return (
-    <div>Empty page.</div>
+    <Page>
+      <Header text="Empty page!"/>
+    </Page>
   )
 }

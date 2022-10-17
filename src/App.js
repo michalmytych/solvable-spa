@@ -27,13 +27,14 @@ const App = () => {
     appRoutes = (
       <div className="App">
         <Routes>
-          <Route path="/" element={<Base isUserLoggedIn={authenticated} />}>
+        {/* @todo - authenticated should be in redux */}
+          <Route path="/" element={<Base isUserLoggedIn={authenticated} />}> 
             <Route index element={<Navigate to="/home" />} />
             <Route path="home" element={<Home />} />
             <Route path="courses" element={<Courses />} />
-            <Route path="problems" element={<Problems alertSetter={setAlert} />} />
-            <Route path="solutions" element={<Solutions alertSetter={setAlert} />} />
-            <Route path="commit" element={<Commit alertSetter={setAlert} />} />
+            <Route path="problems" element={<Problems />} />
+            <Route path="solutions" element={<Solutions />} />
+            <Route path="commit" element={<Commit />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>

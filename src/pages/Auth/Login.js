@@ -3,6 +3,9 @@ import Button from '../../components/atoms/Button'
 import Input from '../../components/atoms/Input'
 import { useState } from 'react'
 import { login } from '../../features/auth'
+import Form from '../../components/atoms/Form'
+import Page from '../../components/atoms/Page'
+import Header from '../../components/atoms/Header'
 
 export default function Login({ onAuthSuccess }) {
   const [email, setEmail] = useState()
@@ -23,8 +26,9 @@ export default function Login({ onAuthSuccess }) {
   }, [email, loggingIn, onAuthSuccess, password])
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <form>
+    <Page>
+      <Header text="Log in" />
+      <Form>
         <Input
           type={'email'}
           value={email}
@@ -43,7 +47,7 @@ export default function Login({ onAuthSuccess }) {
           disabled={loggingIn}
           onClickHandler={() => setLoggingIn(true)}
         />
-      </form>
-    </div>
+      </Form>
+    </Page>
   )
 }

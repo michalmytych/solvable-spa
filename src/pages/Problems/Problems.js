@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Table from '../../components/molecules/Table'
+import Header from '../../components/atoms/Header'
 import Moment from 'moment'
 import { getAll as getAllProblems } from '../../features/problems'
+import Page from '../../components/atoms/Page'
 
 const problemsTableAbstract = {
   structure: {
@@ -34,12 +36,12 @@ export default function Problems({ alertSetter }) {
   }, [])
 
   return (
-    <div>
-      <h1>Problems</h1>
+    <Page>
+      <Header text="Problems"/>
       <Table
         data={problems.data}
         tableAbstract={problemsTableAbstract}
       />
-    </div>
+    </Page>
   )
 }

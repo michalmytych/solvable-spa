@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from 'react'
+import Row from '../atoms/Row'
+import TBody from '../atoms/TBody'
 
 /* 
-
-Table component needs to know what is the structure
-of data you want to display in it.
-
-Example:
-
-const exampleTableAbstract = {
-  structure: {
-    columns: [
-      {
-        key: 'example_json_key',
-        header: 'Example displayed table header',
-        type: 'datetime', - data type
-        fx: (cell) => Moment(cell).format('DD.MM.YYYY') - formatting function
-      }
-    ]
-  }
-} 
-
-*/
+ *
+ * Table component needs to know what is the structure
+ * of data you want to display in it. That is why you
+ * need to provide an object with it's structure to
+ * table component.
+ * 
+ * Example:
+ *
+ * const exampleTableAbstract = {
+ *  structure: {
+ *    columns: [
+ *      {
+ *        key: 'example_json_key',
+ *       header: 'Example displayed table header',
+ *       type: 'datetime', 
+ *       fx: (cell) => Moment(cell).format('DD.MM.YYYY')
+ *     }
+ *   ]
+ * } 
+ *
+ */
 
 export default function Table({ data, tableAbstract }) {
   const [columnsData, setColumnsData] = useState([])
@@ -30,35 +33,20 @@ export default function Table({ data, tableAbstract }) {
   }, [data])
 
   return (
-    <div>
-      <table>
-        <tbody style={{ textAlign: 'left' }}>
-          <tr>
-            {
-              tableAbstract.structure.columns.map(column => (
-                <th key={column.header}>
-                  <strong>
-                    {column.header}
-                  </strong>
-                </th>
-              ))
-            }
-          </tr>
-          {
-            columnsData?.map((row) => (
-              <tr>
-                {
-                  tableAbstract.structure.columns.map(column => (
-                    <td>
-                      {column.fx ? column.fx(row[column.key]) : row[column.key]}
-                    </td>
-                  ))
-                }
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
+    <TBody>
+      <Row
+        tableColumns={tableAbstract.structure.columns}
+        type="header"
+      />
+      {
+        columnsData?.map((rowData, ix) => (
+          <Row
+            key={`row_${ix}`}
+            tableColumns={tableAbstract.structure.columns}
+            rowData={rowData}
+          />
+        ))
+      }
+    </TBody>
   )
 }

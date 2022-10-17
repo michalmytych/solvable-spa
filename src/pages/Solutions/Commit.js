@@ -5,9 +5,11 @@ import Button from '../../components/atoms/Button'
 import { getAll as getAllProblems } from '../../features/problems'
 import { getAll as getAllLanguages } from '../../features/languages'
 import { addingIntegersInCpp, initChannel, uniqueByKey } from '../../helpers'
-import { commit } from '../../features/solutions'
+import { commit } from '../../features/solutions/solutionsApi'
 import Log from '../../components/atoms/Log'
 import Moment from 'moment'
+import Page from '../../components/atoms/Page'
+import Header from '../../components/atoms/Header'
 
 export default function Commit({ alertSetter }) {
   const [problems, setProblems] = useState([])
@@ -56,22 +58,22 @@ export default function Commit({ alertSetter }) {
   }, [alertSetter, code, commited, language, problem])
 
   return (
-    <div>
-      <h1>Commit a solution</h1>
-      <h5>{problem ? problem.title : 'Select problem'}</h5>
+    <Page>
+      <Header text="Commit a solution" />
+      <Header text={problem ? problem.title : 'Select problem'} />
       <Select
         items={problems.data}
         _key={'title'}
         onSelect={setProblem}
         disabled={commited}
       />
-      <h5>{language ? language.name : 'Select language'}</h5>
+      <Header text={language ? language.name : 'Select language'} />
       <Select
         items={languages}
         onSelect={setLanguage}
         disabled={commited}
       />
-      <h5>Write down your solution</h5>
+      <Header text="Write down your solution" />
       <Textarea
         value={code}
         onChangeHandler={setCode}
@@ -82,7 +84,9 @@ export default function Commit({ alertSetter }) {
         onClickHandler={() => setCommited(true)}
         disabled={commited}
       />
-      {result ? <h4>{result.data.message}</h4> : null}
+      {result ?
+        <Header text={result.data.message} />
+        : null}
       {
         executions.map((execution, ix) => (
           <Log
@@ -92,7 +96,7 @@ export default function Commit({ alertSetter }) {
               attributes: [
                 {
                   key: 'Output',
-                  value: <small>{execution.output}</small>  
+                  value: <small>{execution.output}</small>
                 },
                 {
                   key: 'Memory used',
@@ -115,6 +119,6 @@ export default function Commit({ alertSetter }) {
           />
         ))
       }
-    </div>
+    </Page>
   )
 }

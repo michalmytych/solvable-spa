@@ -21,12 +21,9 @@ const solutionStatuses = {
   11: 'Interrupted'
 }
 
-export const getAll = (dataHandler, alertSetter) => {
-  return api
-    .get(routes.getAll)
-    .then((response) => dataHandler(response.data))
-    .catch((response) => alertSetter({ content: response.message }))
-}
+export const resolveSolutionStatus = (key) => solutionStatuses[key] ?? '-'
+
+export const getAll = () => api.get(routes.getAll)
 
 export const commit = (data, responseHandler, alertSetter) => {
   return api
@@ -38,8 +35,4 @@ export const commit = (data, responseHandler, alertSetter) => {
     })
     .then((response) => responseHandler(response))
     .catch((response) => alertSetter({ content: response.message }))
-}
-
-export const resolveSolutionStatus = (key) => {
-  return solutionStatuses[key] ?? '-'
 }

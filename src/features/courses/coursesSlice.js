@@ -8,24 +8,13 @@ const initialState = {
 }
 
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', async () => {
-  try {
-    const response = await getAllCourses()
-    return [...response.data]
-  } catch (error) {
-    return error.message
-  }
+  const response = await getAllCourses()
+  return [...response.data]
 })
 
 const coursesSlice = createSlice({
   name: 'courses',
   initialState,
-  reducers: {
-    courseAdded: {
-      reducer(state, action) {
-        state.courses.push(action.payload)
-      }
-    }
-  },
   extraReducers(builder) {
     builder
       .addCase(fetchCourses.pending, (state, action) => {
@@ -38,6 +27,7 @@ const coursesSlice = createSlice({
       })
       .addCase(fetchCourses.rejected, (state, action) => {
         state.status = 'failed'
+        state.error = action.error.message
       })
   }
 })

@@ -1,4 +1,6 @@
 import Table from '../../components/molecules/Table'
+import Page from '../../components/atoms/Page'
+import Header from '../../components/atoms/Header'
 import Moment from 'moment'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,6 +10,7 @@ import {
   getCoursesStatus,
   fetchCourses
 } from '../../features/courses/coursesSlice'
+import Info from '../../components/atoms/Info'
 
 const coursesTableAbstract = {
   structure: {
@@ -43,16 +46,20 @@ export default function Problems() {
   // https://www.youtube.com/watch?v=93CR_yURoII 18:33 @todo
 
   return (
-    <div>
-      <h1>Courses from redux store</h1>
-      {coursesStatus === 'loading' ? <h5>Loading...</h5> : null}
+    <Page>
+      <Header text="Courses" />
+      {coursesStatus === 'loading' ?
+        <Header text="Loading..." type="h5" />
+        : null}
       {coursesStatus === 'succeeded' ?
         <Table
           data={courses}
           tableAbstract={coursesTableAbstract}
         />
         : null}
-      {coursesStatus === 'error' ? <h5>{coursesError}</h5> : null}
-    </div>
+      {coursesStatus === 'failed' ?
+        <Info type="danger" text={coursesError} />
+        : null}
+    </Page>
   )
 }

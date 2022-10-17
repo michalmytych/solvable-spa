@@ -5,10 +5,11 @@ const navLinks = {
   authenticated: [
     { to: "/", label: "Home" },
     { to: "/solutions", label: "Solutions" },
-    { to: "/problems", label: "Problems" }
+    { to: "/problems", label: "Problems" },
+    { to: "/courses", label: "Courses" }
   ],
   notAuthenticated: [
-    // todo
+    // @todo
     { to: "/login", label: "Sign up" }
   ],
 }
@@ -24,6 +25,7 @@ export default function Base({ isUserLoggedIn }) {
   }, [isUserLoggedIn])
 
   return (
+    // @todo - extract components
     <div>
       <nav>
         <ul>
