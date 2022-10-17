@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react'
 
-export class BaseTable {
-  constructor() {
-    this.structure = {
-      columns: []
-    }
-  }
+/* 
 
-  getDataFetchParams() { }
-}
+Table component needs to know what is the structure
+of data you want to display in it.
+
+Example:
+
+const exampleTableAbstract = {
+  structure: {
+    columns: [
+      {
+        key: 'example_json_key',
+        header: 'Example displayed table header',
+        type: 'datetime', - data type
+        fx: (cell) => Moment(cell).format('DD.MM.YYYY') - formatting function
+      }
+    ]
+  }
+} 
+
+*/
 
 export default function Table({ data, tableAbstract }) {
   const [columnsData, setColumnsData] = useState([])

@@ -1,4 +1,3 @@
-import { BaseTable } from '../../components/molecules/Table'
 import Table from '../../components/molecules/Table'
 import Moment from 'moment'
 import { useEffect } from 'react'
@@ -10,28 +9,23 @@ import {
   fetchCourses
 } from '../../features/courses/coursesSlice'
 
-class ProblemsTable extends BaseTable {
-  constructor() {
-    super()
-    this.structure = {
-      columns: [
-        {
-          key: 'name',
-          header: 'Name',
-          type: 'string'
-        },
-        {
-          key: 'created_at',
-          header: 'Added at',
-          type: 'datetime',
-          fx: (cell) => Moment(cell).format('DD.MM.YYYY')
-        }
-      ]
-    }
+const coursesTableAbstract = {
+  structure: {
+    columns: [
+      {
+        key: 'name',
+        header: 'Name',
+        type: 'string'
+      },
+      {
+        key: 'created_at',
+        header: 'Added at',
+        type: 'datetime',
+        fx: (cell) => Moment(cell).format('DD.MM.YYYY')
+      }
+    ]
   }
 }
-
-const coursesTableAbstract = new ProblemsTable()
 
 export default function Problems() {
   const dispatch = useDispatch()
@@ -45,6 +39,8 @@ export default function Problems() {
       dispatch(fetchCourses())
     }
   }, [coursesStatus, dispatch])
+
+  // https://www.youtube.com/watch?v=93CR_yURoII 18:33 @todo
 
   return (
     <div>
