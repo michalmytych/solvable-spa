@@ -104,20 +104,20 @@ export default function Commit() {
   return (
     <Page>
       <Header text="Commit a solution" />
-      <Header text={problem ? problem.title : 'Select problem'} />
+      <Header type="h3" text={problem ? problem.title : 'Select problem'} />
       <Select
         items={problems.data}
         _key={'title'}
         onSelect={setProblem}
         disabled={commited}
       />
-      <Header text={language ? language.name : 'Select language'} />
+      <Header type="h3" text={language ? language.name : 'Select language'} />
       <Select
         items={languages}
         onSelect={setLanguage}
         disabled={commited}
       />
-      <Header text="Write down your solution" />
+      <Header type="h3" text="Write down your solution" />
       <Textarea
         value={code}
         onChangeHandler={setCode}
