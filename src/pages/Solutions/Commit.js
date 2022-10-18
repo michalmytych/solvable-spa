@@ -135,10 +135,7 @@ export default function Commit() {
         : null}
       {
         executions.map((execution, ix) => (
-          <Log
-            ix={ix}
-            map={executionLogsMap(execution, ix)}
-          />
+          <Log ix={ix} map={executionLogsMap(execution, ix)} />
         ))
       }
     </Page>
