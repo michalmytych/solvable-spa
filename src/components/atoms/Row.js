@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Row({ tableColumns, rowData = null, type = "data" }) {
+export default function Row({ tableColumns = [], rowData = null, type = "data" }) {  
   if (type === "header") {
     return (
       <tr>

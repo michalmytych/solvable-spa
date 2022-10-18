@@ -49,7 +49,7 @@ export default function Problems() {
       {problemsStatus === 'loading' ? <Header text="Loading..." /> : null}
       {problemsStatus === 'succeeded' ?
         <Table
-          data={problems}
+          data={problems.data}
           tableAbstract={problemsTableAbstract}
         />
         : null}

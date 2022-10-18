@@ -32,13 +32,13 @@ export default function Base({ isUserLoggedIn }) {
           {links.map(link => {
             return (
               <li key={link.label}>
-                <Link to={link.to}>{link.label}</Link>
+                {/* @todo - move to styled component */}
+                <Link className='navLink' to={link.to}>{link.label}</Link>
               </li>
             );
           })}
         </ul>
       </nav>
-      <hr />
       <main>
         <Outlet />
       </main>
