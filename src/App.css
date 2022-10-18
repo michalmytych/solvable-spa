@@ -2,6 +2,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: rgb(242, 243, 245);
+  padding-bottom: 7rem;
 }
 
 .App {
@@ -63,6 +64,7 @@ table {
   width: 99%;
   border-style: hidden;
   box-shadow: 0 0 0 1px #666;
+  margin-top: 1.5rem;
 }
 
 /* LINKS */
@@ -74,7 +76,6 @@ a, .navLink {
 
 a {
   color: rgb(19, 154, 19);
-  margin-bottom: 1rem;
 }
 
 .navLink, .navLink:hover, .navLink:active {
