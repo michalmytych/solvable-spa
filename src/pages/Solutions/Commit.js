@@ -2,21 +2,31 @@ import React, { useEffect, useState } from 'react'
 import Select from '../../components/atoms/Select'
 import Textarea from '../../components/atoms/Textarea'
 import Button from '../../components/atoms/Button'
-import { getAll as getAllProblems } from '../../features/problems'
-import { getAll as getAllLanguages } from '../../features/languages'
 import { addingIntegersInCpp, initChannel, uniqueByKey } from '../../helpers'
 import { commit } from '../../features/solutions/solutionsApi'
 import Log from '../../components/atoms/Log'
 import Moment from 'moment'
 import Page from '../../components/atoms/Page'
 import Header from '../../components/atoms/Header'
+import { fetchProblems, getProblemsError, getProblemsStatus, selectAllProblems } from '../../features/problems/problemsSlice'
+import { fetchLanguages, getLanguagesError, getLanguagesStatus, selectAllLanguages } from '../../features/languages/languagesSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import Info from '../../components/atoms/Info'
 
-export default function Commit({ alertSetter }) {
-  const [problems, setProblems] = useState([])
-  const [executions, setExecutions] = useState([])
+export default function Commit() {
+  const dispatch = useDispatch()
+
+  const problems = useSelector(selectAllProblems)
+  const problemsStatus = useSelector(getProblemsStatus)
+  const problemsError = useSelector(getProblemsError)
   const [problem, setProblem] = useState()
-  const [languages, setLanguages] = useState([])
+
+  const languages = useSelector(selectAllLanguages)
+  const languagesStatus = useSelector(getLanguagesStatus)
+  const languagesError = useSelector(getLanguagesError)
   const [language, setLanguage] = useState()
+
+  const [executions, setExecutions] = useState([])
   const [code, setCode] = useState(addingIntegersInCpp)
   const [commited, setCommited] = useState(false)
   const [result, setResult] = useState()
@@ -40,14 +50,22 @@ export default function Commit({ alertSetter }) {
   }, [])
 
   useEffect(() => {
-    getAllProblems(setProblems, alertSetter)
-    getAllLanguages(setLanguages, alertSetter)
-  }, [alertSetter])
+    if (problemsStatus === 'idle') {
+      dispatch(fetchProblems())
+    }
+  }, [problemsStatus, dispatch])
 
+  useEffect(() => {
+    if (languagesStatus === 'idle') {
+      dispatch(fetchLanguages())
+    }
+  }, [languagesStatus, dispatch])
+
+  // @todo - move to redux toolkit
   useEffect(() => {
     async function postData(data) {
       if (commited) {
-        return commit(data, setResult, alertSetter)
+        return commit(data, setResult)
       }
     }
     postData({
@@ -55,7 +73,7 @@ export default function Commit({ alertSetter }) {
       problem: problem,
       language: language,
     })
-  }, [alertSetter, code, commited, language, problem])
+  }, [code, commited, language, problem])
 
   return (
     <Page>
@@ -84,6 +102,8 @@ export default function Commit({ alertSetter }) {
         onClickHandler={() => setCommited(true)}
         disabled={commited}
       />
+      {problemsStatus === 'failed' ? <Info type="danger" text={problemsError} /> : null}
+      {languagesStatus === 'failed' ? <Info type="danger" text={languagesError} /> : null}
       {result ?
         <Header text={result.data.message} />
         : null}

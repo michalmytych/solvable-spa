@@ -25,7 +25,7 @@ export const resolveSolutionStatus = (key) => solutionStatuses[key] ?? '-'
 
 export const getAll = () => api.get(routes.getAll)
 
-export const commit = (data, responseHandler, alertSetter) => {
+export const commit = (data, responseHandler) => {
   return api
     .post(routes.commit(data.problem?.id), {
       data: {
@@ -34,5 +34,5 @@ export const commit = (data, responseHandler, alertSetter) => {
       }
     })
     .then((response) => responseHandler(response))
-    .catch((response) => alertSetter({ content: response.message }))
+    .catch((error) => alert(error.message))
 }

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Table from '../../components/molecules/Table'
 import Header from '../../components/atoms/Header'
 import Moment from 'moment'
-import { getAll as getAllProblems } from '../../features/problems'
 import Page from '../../components/atoms/Page'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProblems, getProblemsError, getProblemsStatus, selectAllProblems } from '../../features/problems/problemsSlice'
+import Info from '../../components/atoms/Info'
 
 const problemsTableAbstract = {
   structure: {
@@ -28,20 +30,30 @@ const problemsTableAbstract = {
   }
 }
 
-export default function Problems({ alertSetter }) {
-  const [problems, setProblems] = useState([])
+export default function Problems() {
+  const dispatch = useDispatch()
+
+  const problems = useSelector(selectAllProblems)
+  const problemsStatus = useSelector(getProblemsStatus)
+  const problemsError = useSelector(getProblemsError)
 
   useEffect(() => {
-    getAllProblems(setProblems, alertSetter)
-  }, [])
+    if (problemsStatus === 'idle') {
+      dispatch(fetchProblems())
+    }
+  }, [problemsStatus, dispatch])
 
   return (
     <Page>
-      <Header text="Problems"/>
-      <Table
-        data={problems.data}
-        tableAbstract={problemsTableAbstract}
-      />
+      <Header text="Problems" />
+      {problemsStatus === 'loading' ? <Header text="Loading..." /> : null}
+      {problemsStatus === 'succeeded' ?
+        <Table
+          data={problems}
+          tableAbstract={problemsTableAbstract}
+        />
+        : null}
+      {problemsStatus === 'failed' ? <Info type="danger" text={problemsError} /> : null}
     </Page>
   )
 }

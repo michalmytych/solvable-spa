@@ -11,7 +11,13 @@ const resolveOptions = (items) => {
   }
 }
 
-export default function Select({ items = [], _value = 'id', _key = 'name', onSelect, disabled = false }) {
+export default function Select({
+  items = [],
+  _value = 'id',
+  _key = 'name',
+  onSelect,
+  disabled = false
+}) {
   const [options, setOptions] = useState([])
   const [selectedOption, setSelectedOption] = useState()
 
