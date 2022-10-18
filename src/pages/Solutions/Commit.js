@@ -13,6 +13,32 @@ import { fetchLanguages, getLanguagesError, getLanguagesStatus, selectAllLanguag
 import { useDispatch, useSelector } from 'react-redux'
 import Info from '../../components/atoms/Info'
 
+const executionLogsMap = (execution, ix) => ({
+  header: `${parseInt(execution.passed) ? '🟢' : '​🔴'} Test ${ix + 1}`,
+  attributes: [
+    {
+      key: 'Output',
+      value: <small>{execution.output}</small>
+    },
+    {
+      key: 'Memory used',
+      value: execution.memory_used
+    },
+    {
+      key: 'Execution time',
+      value: execution.execution_time
+    },
+    {
+      key: 'Passed',
+      value: parseInt(execution.passed) ? 'Yes' : 'No'
+    },
+    {
+      key: 'Executed at',
+      value: Moment(execution.updated_at).format('hh:mm:ss DD.MM.YYYY')
+    }
+  ],
+})
+
 export default function Commit() {
   const dispatch = useDispatch()
 
@@ -111,31 +137,7 @@ export default function Commit() {
         executions.map((execution, ix) => (
           <Log
             ix={ix}
-            map={{
-              header: `${parseInt(execution.passed) ? '🟢' : '​🔴'} Test ${ix + 1}`,
-              attributes: [
-                {
-                  key: 'Output',
-                  value: <small>{execution.output}</small>
-                },
-                {
-                  key: 'Memory used',
-                  value: execution.memory_used
-                },
-                {
-                  key: 'Execution time',
-                  value: execution.execution_time
-                },
-                {
-                  key: 'Passed',
-                  value: parseInt(execution.passed) ? 'Yes' : 'No'
-                },
-                {
-                  key: 'Executed at',
-                  value: Moment(execution.updated_at).format('hh:mm:ss DD.MM.YYYY')
-                }
-              ],
-            }}
+            map={executionLogsMap(execution, ix)}
           />
         ))
       }
