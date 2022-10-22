@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select from '../../components/atoms/Select'
 import Textarea from '../../components/atoms/Textarea'
 import Button from '../../components/atoms/Button'
-import { addingIntegersInCpp, initChannel, uniqueByKey } from '../../helpers'
+import { addingIntegersInCpp, initChannelAndEvents, uniqueByKey } from '../../helpers'
 import { commit } from '../../features/solutions/solutionsApi'
 import Log from '../../components/atoms/Log'
 import Moment from 'moment'
@@ -12,6 +12,7 @@ import { fetchProblems, getProblemsError, getProblemsStatus, selectAllProblems }
 import { fetchLanguages, getLanguagesError, getLanguagesStatus, selectAllLanguages } from '../../features/languages/languagesSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Info from '../../components/atoms/Info'
+import { usePusher } from '../../providers/PusherProvider'
 
 const executionLogsMap = (execution, ix) => ({
   header: `${parseInt(execution.passed) ? '🟢' : '​🔴'} Test ${ix + 1}`,
@@ -57,19 +58,22 @@ export default function Commit() {
   const [commited, setCommited] = useState(false)
   const [result, setResult] = useState()
 
+  const pusher = usePusher()
+
   useEffect(() => {
-    initChannel('solution-tests-executions-updates', [
+    initChannelAndEvents(
+      pusher,
+      'solution-tests-executions-updates', [
       {
         event: 'executed-new-solution-test',
-        // Some bug with pusher instance being replicated in memory
-        // leads to initChannel being called 2 times so as long
-        // as it won't be fixed, we should pick only distinct
-        // executions objects from the list
-        action: (data) => setExecutions(executions => uniqueByKey([...executions, data.execution], 'id'))
+        handler: (data) => setExecutions(
+          // @todo - why events are doubled?
+          executions => uniqueByKey([...executions, data.execution], 'id')
+        )
       },
       {
         event: 'finished-new-solution-testing',
-        action: (data) => alert('Zakończono')
+        handler: (data) => alert('Zakończono')
       }
     ])
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -9,11 +9,19 @@ import { isUserAuthenticated } from './features/auth';
 import Login from './pages/Auth/Login';
 import { useEffect, useState } from 'react';
 import Problems from './pages/Problems/Problems';
-import Alert from './components/atoms/Alert';
+import Pusher from 'pusher-js'
+import { PusherProvider } from './providers/PusherProvider';
+
+// @todo - Enable pusher logging - don't include this in production
+Pusher.logToConsole = true
+
+const pusher = new Pusher('d1bdabed3a3f56fe70ec', {
+  cluster: 'eu',
+  encrypted: true,
+});
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
-  const [alert, setAlert] = useState(null)
 
   useEffect(() => {
     if (isUserAuthenticated()) {
@@ -27,8 +35,8 @@ const App = () => {
     appRoutes = (
       <div className="App">
         <Routes>
-        {/* @todo - authenticated should be in redux */}
-          <Route path="/" element={<Base isUserLoggedIn={authenticated} />}> 
+          {/* @todo - authenticated should be in redux */}
+          <Route path="/" element={<Base isUserLoggedIn={authenticated} />}>
             <Route index element={<Navigate to="/home" />} />
             <Route path="home" element={<Home />} />
             <Route path="courses" element={<Courses />} />
@@ -53,10 +61,9 @@ const App = () => {
   }
 
   return (
-    <div>
+    <PusherProvider instance={pusher}>
       {appRoutes}
-      {alert ? <Alert>{alert.content}</Alert> : null}
-    </div>
+    </PusherProvider>
   )
 }
 

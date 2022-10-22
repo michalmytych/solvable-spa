@@ -1,18 +1,24 @@
-import Pusher from "pusher-js"
-
 export const firstWhere = (items, key, value) => {
   const result = items.filter(item => item[key] === value)
   return result.length ? result[0] : null
 }
 
-export const initChannel = (channelName, eventActionBindings) => {
-  const pusher = new Pusher('d1bdabed3a3f56fe70ec', {
-    cluster: 'eu',
-    encrypted: true
-  })
-  const channel = pusher.subscribe(channelName)
+export const initChannelAndEvents = (pusherInstance, channelName, eventActionBindings) => {
+  if (!pusherInstance) {
+    return
+  }
+
+  let channel = pusherInstance.channel(channelName)
+
+  if (!channel) {
+    channel = pusherInstance.subscribe(channelName)
+  }
+
   eventActionBindings.map(
-    binding => channel.bind(binding.event, data => binding.action(data))
+    binding => channel.bind(
+      binding.event,
+      data => binding.handler(data)
+    )
   )
 }
 
