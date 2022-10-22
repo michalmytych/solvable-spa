@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Table from '../../components/molecules/Table'
-import Page from '../../components/atoms/Page'
+import Table from '../../components/package/molecules/Table'
+import Page from '../../components/package/atoms/Page'
 import Moment from 'moment'
 import { resolveSolutionStatus } from '../../features/solutions/solutionsApi'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,8 +11,8 @@ import {
   getSolutionsStatus,
   selectAllSolutions
 } from '../../features/solutions/solutionsSlice'
-import Header from '../../components/atoms/Header'
-import Info from '../../components/atoms/Info'
+import Header from '../../components/package/atoms/Header'
+import Info from '../../components/package/atoms/Info'
 
 const solutionsTableAbstract = {
   structure: {

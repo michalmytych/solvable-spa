@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { hideAlert } from '../../helpers';
+import { hideAlert } from '../../../helpers'
 
 export default function Alert({ children, id, duration = 4000 }) {
   const alert = useRef(null);

@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Base from './components/layouts/Base';
+import Base from './components/solvable/layouts/Base';
 import Home from './pages/Home';
 import Solutions from './pages/Solutions/Solutions';
 import Courses from './pages/Courses/Courses';

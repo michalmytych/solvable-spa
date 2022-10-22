@@ -1,6 +1,6 @@
-import React from "react";
+import React, { createContext } from "react";
 
-const PusherContext = React.createContext()
+const PusherContext = createContext()
 
 function PusherProvider({ instance, children }) {
   return (
@@ -10,16 +10,5 @@ function PusherProvider({ instance, children }) {
   )
 }
 
-function usePusher() {
-  const context = React.useContext(PusherContext)
-  
-  if (!context) {
-    throw new Error("usePusher must be used within a PusherProvider")
-  }
-
-  const { instance } = context
-  return instance
-}
-
-export { PusherProvider, usePusher }
+export { PusherProvider, PusherContext }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as BellIcon } from '../../assets/icons/bell-icon.svg';
+import { ReactComponent as BellIcon } from '../../../assets/icons/bell-icon.svg'
 import Badge from '../atoms/Badge';
 
 export default function Notifications({ onClick, notifications = []}) {

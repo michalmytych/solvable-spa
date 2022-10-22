@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
-import { initChannelAndEvents, uniqueByKey } from '../../helpers'
-import { usePusher } from '../../providers/PusherProvider'
-import Notifications from '../molecules/Notifications'
+import { initChannelAndEvents, uniqueByKey } from '../../../helpers'
+import { usePusher } from '../../../hooks/usePusher'
+import Notifications from '../../package/molecules/Notifications'
 
 const navLinks = {
   authenticated: [

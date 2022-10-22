@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import Button from '../../components/atoms/Button'
-import Input from '../../components/atoms/Input'
+import Button from '../../components/package/atoms/Button'
+import Input from '../../components/package/atoms/Input'
 import { useState } from 'react'
 import { login } from '../../features/auth'
-import Form from '../../components/atoms/Form'
-import Page from '../../components/atoms/Page'
-import Header from '../../components/atoms/Header'
+import Form from '../../components/package/atoms/Form'
+import Page from '../../components/package/atoms/Page'
+import Header from '../../components/package/atoms/Header'
 
 export default function Login({ onAuthSuccess }) {
   const [email, setEmail] = useState()

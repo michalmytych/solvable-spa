@@ -1,6 +1,6 @@
 import React from 'react'
-import Page from '../../components/atoms/Page'
-import Header from '../../components/atoms/Header'
+import Page from '../../components/package/atoms/Page'
+import Header from '../../components/package/atoms/Header'
 
 export default function NoMatch() {
   return (

@@ -1,6 +1,6 @@
-import Table from '../../components/molecules/Table'
-import Page from '../../components/atoms/Page'
-import Header from '../../components/atoms/Header'
+import Table from '../../components/package/molecules/Table'
+import Page from '../../components/package/atoms/Page'
+import Header from '../../components/package/atoms/Header'
 import Moment from 'moment'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,7 +10,7 @@ import {
   getCoursesStatus,
   fetchCourses
 } from '../../features/courses/coursesSlice'
-import Info from '../../components/atoms/Info'
+import Info from '../../components/package/atoms/Info'
 
 const coursesTableAbstract = {
   structure: {

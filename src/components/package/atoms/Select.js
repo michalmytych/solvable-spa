@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { firstWhere } from '../../helpers'
+import { firstWhere } from '../../../helpers'
 
 const resolveOptions = (items) => {
   if (items instanceof Array) {

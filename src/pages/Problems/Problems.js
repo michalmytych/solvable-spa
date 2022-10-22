@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import Table from '../../components/molecules/Table'
-import Header from '../../components/atoms/Header'
+import Table from '../../components/package/molecules/Table'
+import Header from '../../components/package/atoms/Header'
 import Moment from 'moment'
-import Page from '../../components/atoms/Page'
+import Page from '../../components/package/atoms/Page'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProblems, getProblemsError, getProblemsStatus, selectAllProblems } from '../../features/problems/problemsSlice'
-import Info from '../../components/atoms/Info'
+import Info from '../../components/package/atoms/Info'
 
 const problemsTableAbstract = {
   structure: {
