@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import { initChannelAndEvents, uniqueByKey } from '../../helpers'
+import { usePusher } from '../../providers/PusherProvider'
+import Notifications from '../molecules/Notifications'
 
 const navLinks = {
   authenticated: [
@@ -9,13 +12,16 @@ const navLinks = {
     { to: "/courses", label: "Courses" }
   ],
   notAuthenticated: [
-    // @todo
+    // @todo - login is not signup
     { to: "/login", label: "Sign up" }
   ],
 }
 
 export default function Base({ isUserLoggedIn }) {
+  const pusher = usePusher()
+
   const [links, setLinks] = useState([])
+  const [notifications, setNotifications] = useState([])
 
   useEffect(() => {
     if (isUserLoggedIn) {
@@ -24,21 +30,41 @@ export default function Base({ isUserLoggedIn }) {
     setLinks(navLinks.notAuthenticated)
   }, [isUserLoggedIn])
 
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      initChannelAndEvents(
+        pusher,
+        'general-notifications', [
+        {
+          event: 'sent-general-notification',
+          handler: (data) => setNotifications(
+            notifications => uniqueByKey([...notifications, data], 'id')
+          )
+        }
+      ])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     // @todo - extract components
     <div>
-      <nav>
-        <ul>
-          {links.map(link => {
-            return (
-              <li key={link.label}>
-                {/* @todo - move to styled component */}
-                <Link className='navLink' to={link.to}>{link.label}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      {/* @todo - extractStyledComponent */}
+      <div class="navBar">
+        <nav>
+          <ul>
+            {links.map(link => {
+              return (
+                <li key={link.label}>
+                  {/* @todo - move to styled component */}
+                  <Link className='navLink' to={link.to}>{link.label}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <Notifications notifications={notifications} />
+      </div>
       <main>
         <Outlet />
       </main>
