@@ -135,7 +135,7 @@ export default function Commit() {
       {problemsStatus === 'failed' ? <Info type="danger" text={problemsError} /> : null}
       {languagesStatus === 'failed' ? <Info type="danger" text={languagesError} /> : null}
       {result ?
-        <Header text={result.data.message} />
+        <Info text={result.data.message} />
         : null}
       {
         executions.map((execution, ix) => (
