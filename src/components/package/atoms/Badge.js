@@ -1,41 +1,33 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import styled from 'styled-components'
+import { regulateText } from '../../../helpers'
 
-const regulateText = (text) => {
-  // @todo - add handling regular strings
-  const number = parseInt(text)
-
-  if (number && number > 99) {
-    return '99+'
-  }
-
-  return text
-}
+const BadgeStyled = styled.div`
+  border-radius: '12px';
+  box-shadow: '1px 1px 1px black';
+  height: '13px';
+  min-width: '14px';
+  padding: '0 1px 1px 1px';
+  text-align: 'center';
+  font-size: '0.7rem';
+  color: 'white';
+  background-color: ${props => props.color};
+  position: 'absolute';
+  bottom: '14px';
+  left: '16px';
+`
 
 export default function Badge({ children, display, text, color = 'red' }) {
   if (!display) {
-    return <div>{children}</div>
+    return <Fragment>{children}</Fragment>
   }
 
   return (
-    <div>
-      {/* @todo extract styled component */}
-      <div style={{
-        borderRadius: '12px',
-        boxShadow: '1px 1px 1px black',
-        height: '13px',
-        minWidth: '14px',
-        padding: '0 1px 1px 1px',
-        textAlign: 'center',
-        fontSize: '0.7rem',
-        color: 'white',
-        backgroundColor: color,
-        position: 'absolute',
-        bottom: '14px',
-        left: '16px',
-      }}>
+    <Fragment>
+      <BadgeStyled color={color}>
         {regulateText(text)}
-      </div>
+      </BadgeStyled>
       {children}
-    </div>
+    </Fragment>
   )
 }

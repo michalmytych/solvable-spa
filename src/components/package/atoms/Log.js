@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function Log({ map, ix }) {
   return (
+    // @todo - move styles to styled components
     <div key={ix}>
       <h5>{map.header}</h5>
       <ul>

@@ -9,39 +9,6 @@ body {
   text-align: left;
 }
 
-main, nav {
-  margin: 0 auto;
-  width: 40%;
-}
-
-.bellIconWrapper {
-  position: relative;
-  top: 0.9rem;
-  right: 1.5rem;
-}
-
-.navBar {
-  display: flex;
-  background-color: rgb(38, 38, 39);
-}
-
-nav {
-  text-align: center;
-  display: block;
-  height: 2.3rem;
-  padding-top: 1rem;
-}
-
-ul {
-  padding: 0;
-  margin: 0;
-}
-
-ul>li {
-  display: inline-block;
-  margin: 0 2rem;
-}
-
 /* TABLE */
 table {
   background-color: rgb(251, 253, 255);

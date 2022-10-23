@@ -22,6 +22,20 @@ export const initChannelAndEvents = (pusherInstance, channelName, eventActionBin
   )
 }
 
+export const regulateText = (text, max = 3) => {
+  const number = parseInt(text)
+
+  if (number && number > 99) {
+    return '99+'
+  }
+
+  if (isNaN(number) && text?.length > max) {
+    return `${text.slice(0, max)}...`
+  }
+
+  return text
+}
+
 export const uuidv4 = () => {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
     // eslint-disable-next-line no-mixed-operators

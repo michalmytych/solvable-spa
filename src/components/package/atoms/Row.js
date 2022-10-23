@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Row({ tableColumns = [], rowData = null, type = "data" }) {  
+  // @todo - move global table and related styles to styled components
   if (type === "header") {
     return (
       <tr>

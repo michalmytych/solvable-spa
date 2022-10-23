@@ -1,11 +1,16 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const FormWrapperStyled = styled.div`
+  text-align: center;
+`
 
 export default function Form({ children }) {
   return (
-    <div style={{ textAlign: 'center' }}>
+    <FormWrapperStyled>
       <form>
         {children}
       </form>
-    </div>
+    </FormWrapperStyled>
   )
 }

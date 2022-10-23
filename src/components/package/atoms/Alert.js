@@ -13,6 +13,7 @@ export default function Alert({ children, id, duration = 4000 }) {
   }, []);
 
   return (
+    // @todo - move to styled compoenents
     <div ref={alert} id={id} className="alert warninig alertSlideAndFadeIn">
       {children}
     </div>
