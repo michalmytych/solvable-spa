@@ -9,16 +9,10 @@ import { isUserAuthenticated } from './features/auth';
 import Login from './pages/Auth/Login';
 import { useEffect, useState } from 'react';
 import Problems from './pages/Problems/Problems';
-import Pusher from 'pusher-js'
 import { PusherProvider } from './providers/PusherProvider';
+import { getPusher } from './config/pusher';
 
-// @todo - Enable pusher logging - don't include this in production
-Pusher.logToConsole = true
-
-const pusher = new Pusher('d1bdabed3a3f56fe70ec', {
-  cluster: 'eu',
-  encrypted: true,
-});
+const pusher = getPusher()
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
